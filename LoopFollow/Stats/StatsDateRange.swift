@@ -16,7 +16,6 @@ enum StatsDateRange {
     }
 }
 
-
 /// Calendar-day progression for historical stats; a local day can be 23 or 25 hours.
 /// Shared by basal gap reconstruction and temp-basal adjustment calculations.
 enum StatsCalendarDay {
