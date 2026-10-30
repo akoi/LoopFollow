@@ -15,3 +15,15 @@ enum StatsDateRange {
         return (start: calendar.startOfDay(for: start), end: end)
     }
 }
+
+/// Calendar-day progression for historical stats; a local day can be 23 or 25 hours.
+/// Shared by basal gap reconstruction and temp-basal adjustment calculations.
+enum StatsCalendarDay {
+    static func bounds(containing timestamp: TimeInterval, calendar: Calendar) -> (start: TimeInterval, next: TimeInterval)? {
+        let dayStart = calendar.startOfDay(for: Date(timeIntervalSince1970: timestamp))
+        guard let nextDayStart = calendar.date(byAdding: .day, value: 1, to: dayStart) else {
+            return nil
+        }
+        return (start: dayStart.timeIntervalSince1970, next: nextDayStart.timeIntervalSince1970)
+    }
+}

@@ -539,9 +539,9 @@ class StatsDataFetcher {
 
         var currentTime = startTime
         while currentTime < endTime {
-            let currentDate = Date(timeIntervalSince1970: currentTime)
-            let dayStart = calendar.startOfDay(for: currentDate).timeIntervalSince1970
-            let nextDayStart = dayStart + 24 * 60 * 60
+            guard let day = StatsCalendarDay.bounds(containing: currentTime, calendar: calendar) else { break }
+            let dayStart = day.start
+            let nextDayStart = day.next
 
             for i in 0 ..< sortedProfile.count {
                 let segmentRate = sortedProfile[i].value
